@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     .tab
     {
@@ -35,7 +36,14 @@
       display: none;
       padding: 6px 12px;
       border-top: none;
-      font-family: verdana
+      font-family: verdana;
+      animation: fadeEffect 1s;
+    }
+
+    @keyframes fadeEffect 
+    {
+      from {opacity: 0;}
+      to {opacity: 1;}
     }
 
   </style>
@@ -45,7 +53,7 @@
 <body>
 
   <div class="tab">
-    <button class="tablinks" onclick="openCity(event, 'Tab 1')">Tab 1</button>
+    <button class="tablinks" onclick="openCity(event, 'Tab 1')" id="default">Tab 1</button>
     <button class="tablinks" onclick="openCity(event, 'Tab 2')">Tab 2</button>
     <button class="tablinks" onclick="openCity(event, 'Tab 3')">Tab 3</button>
   </div>
@@ -80,6 +88,7 @@
       document.getElementById(cityName).style.display = "block";
       evt.currentTarget.className += " active";
     }
+    document.getElementById("default").click();
     </script>
 
 </body>

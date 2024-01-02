@@ -6,71 +6,45 @@
     .tab
     {
       overflow: hidden;
-      border: 1px solid hsl(0, 0%, 80%);
-      background-color: #f1f1f1;
+      margin: 0 auto;
+      width:fit-content;
+      font-size:0;
     }
 
     .tab button
     {
-      background-color: inherit;
       float: left;
       border: none;
       outline: none;
       cursor: pointer;
-      padding: 12px 16px;
-      transition: 0.8s;
+      transition: 2.8s;
+      background-color:transparent;
+      color:#FFFFFF;
+      display:inline;
+      font-size:20px;
+      font-family:'Times New Roman';
+      padding: 20px 0;
+      margin-right:20px;
     }
 
     .tab button:hover 
     {
-      background-color: #ddd;
-    }
-
-    .tab button.active 
-    {
-      background-color: #ccc;
-    }
-
-    .tabcontent 
-    {
-      display: none;
-      padding: 6px 12px;
-      border-top: none;
-      font-family: verdana;
-      animation: fadeEffect 1s;
-    }
-
-    @keyframes fadeEffect 
-    {
-      from {opacity: 0;}
-      to {opacity: 1;}
+      text-decoration:underline
     }
 
   </style>
   <title>Vintage Reptiles</title>
   <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 </head>
-<body>
+<body style="background-color:#1C1A1B">
 
   <div class="tab">
-    <button class="tablinks" onclick="openCity(event, 'Tab 1')" id="default">Tab 1</button>
-    <button class="tablinks" onclick="openCity(event, 'Tab 2')">Tab 2</button>
-    <button class="tablinks" onclick="openCity(event, 'Tab 3')">Tab 3</button>
-  </div>
-
-  <div id="Tab 1" class="tabcontent">
-    <h3>Tab 1</h3>
-    <p>London is the capital city of England.</p>
-  </div>
-  
-  <div id="Tab 2" class="tabcontent">
-    <h3>Tab 2</h3>
-    <p>Paris is the capital of France.</p> 
-  </div>
-  
-  <div id="Tab 3" class="tabcontent">
-    <h3>Tab 3</h3>
-    <p>Tokyo is the capital of Japan.</p>
+    <button class="tablinks" onclick="openCity(event, 'Normal')" id="default">Home</button>
+    <button class="tablinks" onclick="openCity(event, 'Normal')">Terms of Service</button>
+    <button class="tablinks" onclick="openCity(event, 'Normal')">Availability</button>
+    <button class="tablinks" onclick="openCity(event, 'Multiple')">Pairings</button>
+    <button class="tablinks" onclick="openCity(event, 'Normal')">Males</button>
+    <button class="tablinks" onclick="openCity(event, 'Normal')">Females</button>
   </div>
 
   <script>

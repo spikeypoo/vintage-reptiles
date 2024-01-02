@@ -1,15 +1,86 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <style>
+    .tab
+    {
+      overflow: hidden;
+      border: 1px solid hsl(0, 0%, 80%);
+      background-color: #f1f1f1;
+    }
+
+    .tab button
+    {
+      background-color: inherit;
+      float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 12px 16px;
+      transition: 0.8s;
+    }
+
+    .tab button:hover 
+    {
+      background-color: #ddd;
+    }
+
+    .tab button.active 
+    {
+      background-color: #ccc;
+    }
+
+    .tabcontent 
+    {
+      display: none;
+      padding: 6px 12px;
+      border-top: none;
+      font-family: verdana
+    }
+
+  </style>
   <title>Vintage Reptiles</title>
   <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 </head>
 <body>
 
-<h1 style="font-family:verdana">Vintage Reptiles</h1>
-<p style="font-family:verdana;">COMING SOON!!!! :O<br> to a site near you! test</p>
+  <div class="tab">
+    <button class="tablinks" onclick="openCity(event, 'Tab 1')">Tab 1</button>
+    <button class="tablinks" onclick="openCity(event, 'Tab 2')">Tab 2</button>
+    <button class="tablinks" onclick="openCity(event, 'Tab 3')">Tab 3</button>
+  </div>
 
-<img src="/images/giraffe.jpeg" alt="giraffe!">
+  <div id="Tab 1" class="tabcontent">
+    <h3>Tab 1</h3>
+    <p>London is the capital city of England.</p>
+  </div>
+  
+  <div id="Tab 2" class="tabcontent">
+    <h3>Tab 2</h3>
+    <p>Paris is the capital of France.</p> 
+  </div>
+  
+  <div id="Tab 3" class="tabcontent">
+    <h3>Tab 3</h3>
+    <p>Tokyo is the capital of Japan.</p>
+  </div>
+
+  <script>
+    function openCity(evt, cityName) 
+    {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(cityName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+    </script>
 
 </body>
 </html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .tab
+    {
+      overflow: hidden;
+      margin: 0 auto;
+      width:fit-content;
+      font-size:0;
+    }
+
+    .tab button
+    {
+      float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      transition: 2.8s;
+      background-color:transparent;
+      color:#FFFFFF;
+      display:inline;
+      font-size:20px;
+      font-family:'Times New Roman';
+      padding: 20px 0;
+      margin-right:25px;
+    }
+
+    .tab button:hover 
+    {
+      text-decoration:underline
+    }
+
+  </style>
+  <title>Vintage Reptiles</title>
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+</head>
+<body style="background-color:#1C1A1B">
+
+  <div class="tab">
+    <button class="tablinks" onclick="redirectUser(event, 'index')" id="default">Home</button>
+    <button class="tablinks" onclick="redirectUser(event, 'tos')">Terms of Service</button>
+    <button class="tablinks" onclick="redirectUser(event, 'availability')">Availability</button>
+    <button class="tablinks" onclick="redirectUser(event, 'pairings')">Pairings</button>
+    <button class="tablinks" onclick="redirectUser(event, 'males')">Males</button>
+    <button class="tablinks" onclick="redirectUser(event, 'females')">Females</button>
+  </div>
+
+  <script>
+    function redirectUser(evt, dir) 
+    {
+      if (dir != 'pairings')
+      {
+        location.href='./' + dir + '.html'
+      }
+    }
+    //document.getElementById("default").click();
+    </script>
+
+</body>
+</html>

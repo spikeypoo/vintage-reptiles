@@ -24,7 +24,7 @@
       font-size:20px;
       font-family:'Times New Roman';
       padding: 20px 0;
-      margin-right:20px;
+      margin-right:25px;
     }
 
     .tab button:hover 
@@ -39,30 +39,23 @@
 <body style="background-color:#1C1A1B">
 
   <div class="tab">
-    <button class="tablinks" onclick="openCity(event, 'Normal')" id="default">Home</button>
-    <button class="tablinks" onclick="openCity(event, 'Normal')">Terms of Service</button>
-    <button class="tablinks" onclick="openCity(event, 'Normal')">Availability</button>
-    <button class="tablinks" onclick="openCity(event, 'Multiple')">Pairings</button>
-    <button class="tablinks" onclick="openCity(event, 'Normal')">Males</button>
-    <button class="tablinks" onclick="openCity(event, 'Normal')">Females</button>
+    <button class="tablinks" onclick="redirectUser(event, 'index')" id="default">Home</button>
+    <button class="tablinks" onclick="redirectUser(event, 'tos')">Terms of Service</button>
+    <button class="tablinks" onclick="redirectUser(event, 'availability')">Availability</button>
+    <button class="tablinks" onclick="redirectUser(event, 'pairings')">Pairings</button>
+    <button class="tablinks" onclick="redirectUser(event, 'males')">Males</button>
+    <button class="tablinks" onclick="redirectUser(event, 'females')">Females</button>
   </div>
 
   <script>
-    function openCity(evt, cityName) 
+    function redirectUser(evt, dir) 
     {
-      var i, tabcontent, tablinks;
-      tabcontent = document.getElementsByClassName("tabcontent");
-      for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
+      if (dir != 'pairings')
+      {
+        location.href='./' + dir + '.html'
       }
-      tablinks = document.getElementsByClassName("tablinks");
-      for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-      }
-      document.getElementById(cityName).style.display = "block";
-      evt.currentTarget.className += " active";
     }
-    document.getElementById("default").click();
+    //document.getElementById("default").click();
     </script>
 
 </body>

@@ -2,13 +2,45 @@
 <html lang="en">
 
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <style>
     body {
       background-color: #1C1A1B;
       margin: 0;
       padding: 0;
       font-family: 'Times New Roman';
+    }
+
+    .mobile-nav {
+      display: none;
+      position: absolute;
+      top: 140px; /* Adjust the top position as needed */
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #1d1b1b;
+      border: 1px solid black;
+      z-index: 2;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    }
+
+    .mobile-nav a {
+      color: white;
+      padding: 12px 100px;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+      font-size: 20px;
+      border: 1px solid black;
+    }
+
+    .mobile-nav a:hover {background-color: #121010;}
+
+    .mobile-submenu {
+      display: none;
+    }
+
+    .mobile-submenu a {
+      border: 2px solid rgb(200, 96, 194);
     }
 
     .container {
@@ -23,7 +55,6 @@
     }
 
     .tab {
-      overflow: hidden;
       font-size: 0;
     }
 
@@ -47,7 +78,6 @@
 
     .dropdown
     {
-      position: relative;
       display: inline-block
     }
 
@@ -75,38 +105,98 @@
     .dropdown:hover .dropdown-content {display: block;}
     .dropdown-content a:hover {background-color: #121010;}
 
+    .topnav
+    {
+      background-color: transparent;
+      overflow: hidden;
+    }
+
+    .topnav a {
+      display: block;
+      color: #f2f2f2;
+      text-align: center;
+      text-decoration: none;
+      font-size: 25px;
+      float: right;
+      position: absolute;
+      right: 20px;
+      top: 100px
+    }
+
+    .topnav a.active {
+      background-color: #04AA6D;
+      color: white;
+    }
+
+    /* Hide the link that should open and close the topnav on small screens */
+    .topnav .icon {
+      display: none;
+    }
+
+    @media screen and (max-width: 600px) {
+      .container button {display: none;}
+      .topnav a.icon {
+        float: right;
+        display: block;
+      }
+    }
+
   </style>
   <title>Vintage Reptiles</title>
   <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 </head>
 
 <body>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <div class="container">
-    <div class="logo">
+    <div class="logo tablinks">
       <img src='/images/vr.png' width="100" height="100">
     </div>
     <div class="tab">
       <button class="tablinks" onclick="redirectUser(event, 'index')" id="default">Home</button>
       <button class="tablinks" onclick="redirectUser(event, 'tos')">Terms of Service</button>
       <button class="tablinks" onclick="redirectUser(event, 'availability')">Availability</button>
-    </div>
 
-    <div class="dropdown">
-      <button class="tablinks">Pairings</button>
-      <div class="dropdown-content">
+      <div class="dropdown tab" style="overflow:visible">
+        <button class="tablinks tab dropdown">Pairings</button>
+        <div class="dropdown-content">
+          <a onclick="redirectUser(event, 'pairings-2022')">2022</a>
+          <a onclick="redirectUser(event, 'pairings-2023')">2023</a>
+          <a onclick="redirectUser(event, 'pairings-2024')">2024</a>
+        </div>
+      </div>
+
+      <button class="tablinks tab" onclick="redirectUser(event, 'males')">Males</button>
+      <button class="tablinks tab" onclick="redirectUser(event, 'females')">Females</button>
+    </div>
+  </div>
+
+  <div class="topnav" id="myTopnav">
+    <a class="icon" onclick="toggleMobileNav()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a onclick="redirectUser(event, 'index')">Home</a>
+    <a onclick="redirectUser(event, 'tos')">Terms of Service</a>
+    <a onclick="redirectUser(event, 'availability')">Availability</a>
+    <a onclick="showPairings()">Pairings</a>
+    <div class="mobile-submenu" id="pairingsSubMenu">
+      <div id="pairingsYears" style="display: none;">
         <a onclick="redirectUser(event, 'pairings-2022')">2022</a>
         <a onclick="redirectUser(event, 'pairings-2023')">2023</a>
         <a onclick="redirectUser(event, 'pairings-2024')">2024</a>
       </div>
     </div>
-
-    <button class="tablinks" onclick="redirectUser(event, 'males')">Males</button>
-    <button class="tablinks" onclick="redirectUser(event, 'females')">Females</button>
+    <a onclick="redirectUser(event, 'males')">Males</a>
+    <a onclick="redirectUser(event, 'females')">Females</a>
   </div>
 
-  <div style="margin-top:-25px">
+  <div style="margin-top:-30px">
     <hr>
   </div>
+
 
   <script>
     function redirectUser(evt, dir) {
@@ -114,6 +204,28 @@
         location.href = './' + dir + '.html'
       }
     }
+
+    function toggleMobileNav() {
+      var mobileNav = document.getElementById("mobileNav");
+      mobileNav.style.display = (mobileNav.style.display === "block") ? "none" : "block";
+    }
+
+    function showPairings() {
+      var pairingsSubMenu = document.getElementById("pairingsSubMenu");
+      var pairingsYears = document.getElementById("pairingsYears");
+
+      if (pairingsSubMenu.style.display != "block")
+      {
+        pairingsSubMenu.style.display = "block";
+        pairingsYears.style.display = "block";
+      }
+      else
+      {
+        pairingsSubMenu.style.display = "none";
+        pairingsYears.style.display = "block";
+      }
+    }
+
     //document.getElementById("default").click();
   </script>
 

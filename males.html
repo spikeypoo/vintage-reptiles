@@ -27,7 +27,7 @@
       font-size: 0;
     }
 
-    .tab button {
+    .tablinks {
       font-family: 'Times New Roman';
       border: none;
       outline: none;
@@ -44,6 +44,37 @@
     .tab button:hover {
       text-decoration: underline;
     }
+
+    .dropdown
+    {
+      position: relative;
+      display: inline-block
+    }
+
+    .dropdown-content
+    {
+      display: none;
+      position: absolute;
+      background-color: #1d1b1b;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+      font-family: 'Times New Roman';
+    }
+
+    .dropdown-content a {
+      color: white;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+      font-size: 20px;
+      border: 1px solid black;
+    }
+
+    .dropdown:hover .dropdown-content {display: block;}
+    .dropdown-content a:hover {background-color: #121010;}
+
   </style>
   <title>Vintage Reptiles</title>
   <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
@@ -58,10 +89,19 @@
       <button class="tablinks" onclick="redirectUser(event, 'index')" id="default">Home</button>
       <button class="tablinks" onclick="redirectUser(event, 'tos')">Terms of Service</button>
       <button class="tablinks" onclick="redirectUser(event, 'availability')">Availability</button>
-      <button class="tablinks" onclick="redirectUser(event, 'pairings')">Pairings</button>
-      <button class="tablinks" onclick="redirectUser(event, 'males')">Males</button>
-      <button class="tablinks" onclick="redirectUser(event, 'females')">Females</button>
     </div>
+
+    <div class="dropdown">
+      <button class="tablinks">Pairings</button>
+      <div class="dropdown-content">
+        <a onclick="redirectUser(event, 'pairings-2022')">2022</a>
+        <a onclick="redirectUser(event, 'pairings-2023')">2023</a>
+        <a onclick="redirectUser(event, 'pairings-2024')">2024</a>
+      </div>
+    </div>
+
+    <button class="tablinks" onclick="redirectUser(event, 'males')">Males</button>
+    <button class="tablinks" onclick="redirectUser(event, 'females')">Females</button>
   </div>
 
   <div style="margin-top:-25px">

@@ -18,6 +18,53 @@
       font-family: Normal;
     }
 
+    @font-face {
+        font-family: Header;
+        src: url('./Tahoma Bold.woff');
+    }
+
+    .header
+    {
+      text-align:center;
+      color:white;
+      font-size:18px;
+      font-family:Header;
+      text-decoration:underline;
+    }
+
+    .pg
+    {
+      color:white;
+      font-size:17px;
+      font-family:Normal;
+      width:90%;
+      max-width:1000px;
+      margin-left:auto;
+      margin-right:auto;
+      text-align:center;
+    }
+
+    #reptileContainer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .reptile-card {
+      flex: 0 0 calc(33.33% - 20px); /* Adjust the percentage as needed */
+      margin: 10px;
+      max-width:300px;
+      box-sizing: border-box;
+    }
+
+    .reptile-card img {
+      width: 100%;
+      max-width: 275px;
+      height: auto;
+      border: 5px solid white;
+      cursor: pointer;
+    }
+
     .mobile-nav {
       display: none;
       position: absolute;
@@ -153,6 +200,15 @@
       .dropdown a
       {
         display: none;
+      }
+
+      #reptileContainer {
+        flex-direction: column; /* Stack cards under each other */
+        align-items: center; /* Center cards horizontally */
+      }
+
+      .reptile-card {
+        flex: 0 0 calc(100% - 20px); /* Full width with margins */
       }
     }
 

@@ -22,10 +22,8 @@ reptilesCollection.get().then((querySnapshot) => {
         reptileCard.className = 'reptile-card';
 
         reptileCard.innerHTML = `
-            <h2>${data.name}</h2>
-            <p>Price: $${data.price}</p>
-            <p>Description: ${data.description}</p>
-            <img src="${data.gecko}" alt="${data.name}">
+            <h2 class="header" style="text-decoration:none">${data.name}</h2>
+            <img style="margin-left:auto;margin-right:auto;display:block" src="${data.gecko}" alt="${data.name}">
         `;
 
         // Append the reptile card to the container

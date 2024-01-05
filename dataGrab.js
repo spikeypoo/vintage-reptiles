@@ -12,13 +12,32 @@ const firebaseConfig = {
   };
 
   firebase.initializeApp(firebaseConfig);
-  // Fetch reptile data from Firestore
+
+// Fetch reptile data from Firestore
 const reptilesCollection = firebase.firestore().collection('geckos');
+const reptileContainer = document.getElementById('reptileContainer');
 
 reptilesCollection.get().then((querySnapshot) => {
-  querySnapshot.forEach((doc) => {
-    const data = doc.data();
-    // Process and display reptile data on your site
-    console.log(data);
-  });
+    querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        // Create HTML elements for each reptile
+        const reptileCard = document.createElement('div');
+        reptileCard.className = 'reptile-card';
+
+        reptileCard.innerHTML = `
+            <h2>${data.name}</h2>
+            <p>Price: $${data.price}</p>
+            <p>Description: ${data.description}</p>
+            <img src="${data.image}" alt="${data.name}">
+
+            <h3>Parents</h3>
+            <p>${data.parents}</p>
+
+            <h3>Grandparents</h3>
+            <p>${data.grandparents}</p>
+        `;
+
+        // Append the reptile card to the container
+        reptileContainer.appendChild(reptileCard);
+    });
 });

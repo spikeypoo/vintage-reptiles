@@ -24,7 +24,7 @@ loginButton.addEventListener('click', async () => {
     const userCredential = await auth.signInWithEmailAndPassword(username, password);
 
     // Redirect to the page with the form on successful login
-    window.location.href = 'form.html';
+    window.location.href = 'reptile-form.html';
   } catch (error) {
     console.error('Login failed:', error);
     alert('Invalid username or password. Please try again.');

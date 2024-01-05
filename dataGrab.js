@@ -28,13 +28,7 @@ reptilesCollection.get().then((querySnapshot) => {
             <h2>${data.name}</h2>
             <p>Price: $${data.price}</p>
             <p>Description: ${data.description}</p>
-            <img src="${data.image}" alt="${data.name}">
-
-            <h3>Parents</h3>
-            <p>${data.parents}</p>
-
-            <h3>Grandparents</h3>
-            <p>${data.grandparents}</p>
+            <img src="${data.gecko}" alt="${data.name}">
         `;
 
         // Append the reptile card to the container

@@ -1,10 +1,11 @@
+
 const firebaseConfig = {
-    apiKey: 'AIzaSyDVSmOD4MRVeupfQ33Umlry0pjHvVtylkA',
-    authDomain: 'vintage-reptiles.firebaseapp.com',
-    projectId: 'vintage-reptiles',
-    storageBucket: 'vintage-reptiles.appspot.com',
-    messagingSenderId: '547191562645',
-    appId: '1:547191562645:web:8ccc52ccdde7b239e0969c',
+    apiKey: "AIzaSyDVSmOD4MRVeupfQ33Umlry0pjHvVtylkA",
+    authDomain: "vintage-reptiles.firebaseapp.com",
+    projectId: "vintage-reptiles",
+    storageBucket: "vintage-reptiles.appspot.com",
+    messagingSenderId: "547191562645",
+    appId: "1:547191562645:web:8ccc52ccdde7b239e0969c"
   };
 
   firebase.initializeApp(firebaseConfig);

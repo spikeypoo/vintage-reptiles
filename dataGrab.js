@@ -1,7 +1,4 @@
 
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-
 const firebaseConfig = {
     apiKey: "AIzaSyDVSmOD4MRVeupfQ33Umlry0pjHvVtylkA",
     authDomain: "vintage-reptiles.firebaseapp.com",

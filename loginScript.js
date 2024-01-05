@@ -25,7 +25,7 @@ loginButton.addEventListener('click', async () => {
 
     // Redirect to the page with the form on successful login
     window.location.href = 'reptile-form.html';
-  } catch (error) {
+    } catch (error) {
     console.error('Login failed:', error);
     alert('Invalid username or password. Please try again.');
   }

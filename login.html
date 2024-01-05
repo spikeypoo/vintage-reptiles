@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+
+  <style>
+    body
+    {
+        background-color:#1C1A1B;
+    }
+    @font-face {
+        font-family: Normal;
+        src: url('./Tahoma.woff');
+    }
+
+    @font-face {
+        font-family: Header;
+        src: url('./Tahoma Bold.woff');
+    }
+
+    .header
+    {
+      text-align:center;
+      color:white;
+      font-size:18px;
+      font-family:Header;
+      text-decoration:underline;
+    }
+
+    .pg
+    {
+      color:white;
+      font-size:17px;
+      font-family:Normal;
+      width:90%;
+      max-width:1000px;
+      margin-left:auto;
+      margin-right:auto;
+      text-align:center;
+    }
+
+    .input
+    {
+        text-align:center;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="header">Login</h1>
+  <form id="loginForm" class="input">
+    <label for="username" class="pg">Username:</label>
+    <input type="text" id="username" name="username" required><br>
+
+    <label for="password" class="pg">Password:</label>
+    <input type="password" id="password" name="password" required><br>
+
+    <button type="button" id="loginButton">Login</button>
+  </form>
+
+  <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-auth.js"></script>
+
+  <script src="loginScript.js"></script>
+</body>
+</html>

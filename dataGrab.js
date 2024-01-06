@@ -24,10 +24,11 @@ reptilesCollection.get().then((querySnapshot) => {
         reptileCard.className = 'reptile-card';
 
         reptileCard.innerHTML = `
-            <h2 class="header" style="text-decoration:none">${data.name}</h2>
+            <h2 class="header">${data.name}</h2>
             <img style="margin-left:auto;margin-right:auto;display:block;cursor:pointer;" 
                 src="${data.gecko}" alt="${data.name}" 
-                onclick="openModal('${data.name}', '${data.gecko}', '${data.description}', '${data.price}', '${data.gp1}', '${data.gp2}')">
+                onclick="openModal('${data.name}', '${data.gecko}', '${data.description}', '${data.price}', '${data.grandparents1}', '${data.grandparents2}', '${data.parents}')">
+                <h2 class="header">$${data.price}.00</h2>
             `;
         // Chicken butt!
         // Append the reptile card to the container
@@ -35,18 +36,19 @@ reptilesCollection.get().then((querySnapshot) => {
     });
 });
 
-function openModal(name, image, desc, price, gp1, gp2) {
+function openModal(name, image, desc, price, gp1, gp2, par) {
     const modalImages = document.getElementById('modalImages');
     const modalContent = document.getElementById('modalContent');
+    var temp = image;
     modalImages.innerHTML = `
-    <img src="${image}" alt="${name}" style="width:500px;border:5px solid white">
+    <img src="${image}" alt="${name}">
     `;
     modalContent.innerHTML = `
-      <h2 class="header2" style="text-decoration:none;padding-left:100px;padding-bottom:0;font-size:30px">${name}<span class="pg" style="margin-top:100px;font-size:20px"><br>${desc}<br><br>$${price}</span></h2>
-      <img src="${image}" alt="${name}" style="width:100px;position:relative;right:497px;top:250px;margin-right:10px;border:5px solid white">
-      <img src="${image}" alt="${name}" style="width:100px;position:relative;right:497px;top:250px;margin-right:10px;border:5px solid white">
-      <img src="${image}" alt="${name}" style="width:100px;position:relative;right:497px;top:250px;margin-right:10px;border:5px solid white">
-      <img src="${image}" alt="${name}" style="width:100px;position:relative;right:497px;top:250px;border:5px solid white">
+      <h2 class="header2">${name}<span class="pg" style="margin-top:100px;font-size:20px"><br>${desc}<br><br>$${price}.00 CAD</span></h2>
+      <img src="${image}" alt="${name}" class="chicken" onclick="changeImage('${image}')" margin-right:10px;">
+      <img src="${par}" alt="${name}" class="chicken" onclick="changeImage('${par}')" margin-right:10px;">
+      <img src="${gp1}" alt="${name}" class="chicken" onclick="changeImage('${gp1}')" margin-right:10px;">
+      <img src="${gp2}" alt="${name}" class="chicken" onclick="changeImage('${gp2}')">
       <!-- Add more details if needed -->
     `;
     const modal = document.getElementById('geckoModal');
@@ -57,4 +59,11 @@ function openModal(name, image, desc, price, gp1, gp2) {
   function closeModal() {
     const modal = document.getElementById('geckoModal');
     modal.style.display = 'none';
+  }
+
+  function changeImage(image)
+  {
+    modalImages.innerHTML = `
+    <img src="${image}" alt="${name}" style="width:500px;border:5px solid white">
+    `;
   }

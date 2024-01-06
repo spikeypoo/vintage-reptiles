@@ -37,7 +37,6 @@
       background-color: #121010;
     }
 
-
     .close
     {
       color:white;
@@ -239,6 +238,57 @@
       .reptile-card {
         flex: 0 0 calc(100% - 20px); /* Full width with margins */
       }
+
+      #modalImages
+      {
+        padding-top:50px;
+      }
+
+      #modalImages img
+      {
+        max-width:90%;
+        width:500px;
+        display:block;
+        margin-left:auto;
+        margin-right:auto;
+        border:5px solid white
+      }
+
+      #modalContent h2
+      {
+        text-decoration:none;
+        font-size:20px;
+        padding-left:0px;
+      }
+
+      #modalContent img
+      {
+        border:5px solid white;
+        cursor:pointer;
+        width:100px;
+        left:50px;
+      }
+
+      #modalContent
+      {
+        padding-left:50px;
+      }
+
+      #reptileContainer img:hover
+      {
+        opacity:60%;
+      }
+
+      #reptileContainer h2
+      {
+        text-decoration:none;
+      }
+
+      #modalContent img:hover
+      {
+        border:5px solid lightgrey;
+      }
+      
     }
 
     @media screen and (min-width: 600px) {
@@ -246,6 +296,58 @@
       {
         display: none;
       }
+
+      #containing
+    {
+      display:flex;
+      justify-content:center;
+      padding-top:70px;
+    }
+
+    #reptileContainer img:hover
+    {
+      opacity:60%;
+    }
+
+    #reptileContainer h2
+    {
+      text-decoration:none;
+    }
+
+    #modalImages img
+    {
+      width:500px;
+      border:5px solid white
+    }
+
+    #modalContent
+    {
+      padding-top:120px
+    }
+
+    #modalContent img
+    {
+      border:5px solid white;
+      cursor:pointer;
+      width:100px;
+      position:relative;
+      right:497px;
+      top:250px;
+    }
+
+    #modalContent img:hover
+    {
+      border:5px solid lightgrey;
+    }
+
+    #modalContent h2
+    {
+      text-decoration:none;
+      padding-left:100px;
+      padding-bottom:0;
+      font-size:30px;
+      top:0px;
+    }
     }
 
   </style>
@@ -307,10 +409,10 @@
   <div id="reptileContainer"></div>
 
   <div id="geckoModal" class="modal">
-    <span class="close" style="position:absolute;top:20px;right:20px;cursor:pointer" onclick="closeModal()">&times;</span>
-    <div id="containing" style="display:flex;justify-content:center;padding-top:70px">
+    <span class="close" style="position:absolute;top:2px;right:2px;cursor:pointer" onclick="closeModal()">&times;</span>
+    <div id="containing">
       <div id="modalImages"></div>
-      <div id="modalContent" style="padding-top:120px"></div>
+      <div id="modalContent"></div>
     </div>
   </div>
 

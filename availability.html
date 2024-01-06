@@ -23,9 +23,38 @@
         src: url('./Tahoma Bold.woff');
     }
 
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      right:0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: #121010;
+      background-color: #121010;
+    }
+
+
+    .close
+    {
+      color:white;
+      font-size:50px;
+    }
+
     .header
     {
       text-align:center;
+      color:white;
+      font-size:18px;
+      font-family:Header;
+      text-decoration:underline;
+    }
+
+    .header2
+    {
       color:white;
       font-size:18px;
       font-family:Header;
@@ -276,6 +305,14 @@
   </div>
 
   <div id="reptileContainer"></div>
+
+  <div id="geckoModal" class="modal">
+    <span class="close" style="position:absolute;top:20px;right:20px;cursor:pointer" onclick="closeModal()">&times;</span>
+    <div id="containing" style="display:flex;justify-content:center;padding-top:200px">
+      <div id="modalImages"></div>
+      <div id="modalContent" style="padding-top:120px"></div>
+    </div>
+  </div>
 
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 

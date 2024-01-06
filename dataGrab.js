@@ -43,9 +43,10 @@ function openModal(name, image, desc, price, gp1, gp2) {
     `;
     modalContent.innerHTML = `
       <h2 class="header2" style="text-decoration:none;padding-left:100px;padding-bottom:0;font-size:30px">${name}<span class="pg" style="margin-top:100px;font-size:20px"><br>${desc}<br><br>$${price}</span></h2>
-      <img src="${image}" alt="${name}" style="width:100px;position:relative;right:435px;top:210px;margin-right:10px;border:5px solid white">
-      <img src="${image}" alt="${name}" style="width:100px;position:relative;right:435px;top:210px;margin-right:10px;border:5px solid white">
-      <img src="${image}" alt="${name}" style="width:100px;position:relative;right:435px;top:210px;border:5px solid white">
+      <img src="${image}" alt="${name}" style="width:100px;position:relative;right:497px;top:250px;margin-right:10px;border:5px solid white">
+      <img src="${image}" alt="${name}" style="width:100px;position:relative;right:497px;top:250px;margin-right:10px;border:5px solid white">
+      <img src="${image}" alt="${name}" style="width:100px;position:relative;right:497px;top:250px;margin-right:10px;border:5px solid white">
+      <img src="${image}" alt="${name}" style="width:100px;position:relative;right:497px;top:250px;border:5px solid white">
       <!-- Add more details if needed -->
     `;
     const modal = document.getElementById('geckoModal');

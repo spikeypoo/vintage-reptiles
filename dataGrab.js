@@ -29,7 +29,7 @@ reptilesCollection.get().then((querySnapshot) => {
                 src="${data.gecko}" alt="${data.name}" 
                 onclick="openModal('${data.name}', '${data.gecko}', '${data.description}', '${data.price}', '${data.gp1}', '${data.gp2}')">
             `;
-
+        // Chicken butt!
         // Append the reptile card to the container
         reptileContainer.appendChild(reptileCard);
     });

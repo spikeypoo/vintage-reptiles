@@ -25,7 +25,7 @@
 
     function uploadGecko() {
       const name = document.getElementById('geckoName').value;
-      const description = document.getElementById('geckoDescription').value;
+      const description = document.getElementById('geckoDescriptionription').value;
       const geckoImage = document.getElementById('geckoImage').files[0];
       const parentsImage = document.getElementById('parentsImage').files[0];
       const grandparentsImage = document.getElementById('grandparentsImage').files[0];
@@ -40,7 +40,7 @@
       // Upload images to Firebase Storage
       const storageRef = firebase.storage().ref();
       const uploadGeckoTask = storageRef.child(`gecko_images/${geckoImage.name}`).put(geckoImage);
-      const uploadDescriptionTask = storageRef.child(`gecko_images/${geckoDesc.name}`).put(geckoImage);
+      const uploadDescriptionTask = storageRef.child(`gecko_images/${geckoDescription.name}`).put(geckoImage);
       const uploadParentsTask = storageRef.child(`parent_images/${parentsImage.name}`).put(parentsImage);
       const uploadGrandparent1Task = storageRef.child(`grandparent_images/${grandparentsImage.name}`).put(grandparentsImage);
       const uploadGrandparent2Task = storageRef.child(`grandparent_images/${grandparent2Image.name}`).put(grandparent2Image);
@@ -127,8 +127,8 @@
         <label for="geckoName">Gecko Name:</label>
         <input type="text" id="geckoName" name="geckoName" required>
         <br>
-        <label for="geckoDescription">Description:</label>
-        <input type="text" id="geckoDescription" name="geckoDiscription" required>
+        <label for="geckoDescriptionription">Description:</label>
+        <input type="text" id="geckoDescriptionription" name="geckoDiscription" required>
         <br>
         <label for="geckoImage">Gecko Image:</label>
         <input type="file" id="geckoImage" name="geckoImage" accept="image/*" required>

@@ -46,35 +46,17 @@
       const uploadGrandparent1Task = storageRef.child(`grandparent_images/${grandparentsImage.name}`).put(grandparentsImage);
       const uploadGrandparent2Task = storageRef.child(`grandparent_images/${grandparent2Image.name}`).put(grandparent2Image);
 
-      // Handle successful uploads
-      Promise.all([uploadGeckoTask, uploadParentsTask, uploadGrandparent1Task, uploadGrandparent2Task])
-        .then((results) => {
-          const geckoImageURL = results[0].ref.getDownloadURL();
-          const parentsImageURL = results[1].ref.getDownloadURL();
-          const grandparentsImageURL = results[2].ref.getDownloadURL();
-          const grandparent2ImageURL = results[3].ref.getDownloadURL();
+      const geckoImageURL = uploadGeckoTask.ref.getDownloadURL();
+      const parentsImageURL = uploadParentsTask.ref.getDownloadURL();
+      const grandparentsImageURL = uploadGrandparent1Task.ref.getDownloadURL();
+      const grandparent2ImageURL = uploadGrandparent2Task.ref.getDownloadURL();
 
-          // Save gecko data to Firestore
-          Promise.all([geckoImageURL, parentsImageURL, grandparentsImageURL, grandparent2ImageURL])
-            .then((urls) => {
-              const [geckoURL, parent1URL, parent2URL, grandparent1URL, grandparent2URL] = urls;
-              
-              firestore.collection('geckos').add({
+      firestore.collection('geckos').add({
                 name: name,
                 gecko: geckoURL,
                 parents: parentsImageURL,
                 grandparent1: grandparent1URL,
                 grandparent2: grandparent2URL,
-              }).then(() => {
-                alert('Gecko uploaded successfully!');
-                // You can redirect to another page or perform any additional actions here
-              }).catch((error) => {
-                console.error('Error adding gecko to Firestore:', error);
-              });
-            });
-        }).catch((error) => {
-          console.error('Error uploading images to Firebase Storage:', error);
-        });
     }
   </script>
   

@@ -222,6 +222,7 @@
   <script>
     // Your existing scripts
     // ...
+    let currentEditingGeckoId = null;
 
     // Function to display current geckos
     function displayCurrentGeckos() {
@@ -254,18 +255,14 @@
       });
     }
 
-    // Function to edit a gecko (You can implement this as needed)
-    function editGecko(geckoId) {
-      // Implement the edit functionality as needed
-      // ...
-    }
-
     // Call the function to display current geckos when the page loads
     window.onload = displayCurrentGeckos;
 
     function editGecko(geckoId) {
     const editGeckoModal = document.getElementById('editGeckoModal');
     const editGeckoForm = document.getElementById('editGeckoForm');
+
+    currentEditingGeckoId = geckoId;
 
     // Retrieve gecko details from Firestore
     firestore.collection('geckos').doc(geckoId).get().then((doc) => {

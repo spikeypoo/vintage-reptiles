@@ -175,5 +175,156 @@
         <br>
         <button onclick="uploadGecko()">Upload Gecko</button>
       </div>
+
+      <hr>
+
+        <!-- Display current gecko images with delete and edit buttons -->
+        <div id="currentGeckos">
+            <h2 class="header">Current Geckos</h2>
+            <ul id="geckoList"></ul>
+        </div>
+
+        <hr>
+    
+        <!-- Modal for editing gecko -->
+        <div id="editGeckoModal" class="modal">
+            <div id="editGeckoModalContent">
+            <span class="close" onclick="closeEditModal()">&times;</span>
+            <h2 class="header">Edit Gecko</h2>
+            <form id="editGeckoForm">
+                <label style="color:white;font-family:normal" for="editGeckoName">Name:</label>
+                <input type="text" id="editGeckoName" required>
+                <br>
+                <label style="color:white;font-family:normal" for="editGeckoDescription">Description:</label>
+                <textarea id="editGeckoDescription" required></textarea>
+                <br>
+                <label style="color:white;font-family:normal" for="editGeckoPrice">Price:</label>
+                <input type="text" id="editGeckoPrice" required>
+                <br>
+                <label style="color:white;font-family:normal" for="editGeckoImage">Gecko Image:</label>
+                <input type="file" id="editGeckoImage">
+                <br>
+                <label style="color:white;font-family:normal" for="editParentsImage">Parents Image:</label>
+                <input type="file" id="editParentsImage">
+                <br>
+                <label style="color:white;font-family:normal" for="editGrandparent1Image">Grandparent 1 Image:</label>
+                <input type="file" id="editGrandparent1Image">
+                <br>
+                <label style="color:white;font-family:normal" for="editGrandparent2Image">Grandparent 2 Image:</label>
+                <input type="file" id="editGrandparent2Image">
+                <br>
+                <button type="button" onclick="saveEditedGecko()">Save Changes</button>
+            </form>
+            </div>
+        </div>
   </body>
+
+  <script>
+    // Your existing scripts
+    // ...
+
+    // Function to display current geckos
+    function displayCurrentGeckos() {
+      const geckoList = document.getElementById('geckoList');
+      geckoList.innerHTML = ''; // Clear previous list
+
+      // Retrieve geckos from Firestore
+      firestore.collection('geckos').get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          const geckoItem = document.createElement('li');
+          geckoItem.innerHTML = `
+            <img src="${data.gecko}" alt="${data.name}" width="50" height="50">
+            <p style="color:white;font-family:Normal">${data.name}</h2>
+            <button onclick="editGecko('${doc.id}')">Edit</button>
+            <button onclick="deleteGecko('${doc.id}')">Delete</button>
+          `;
+          geckoList.appendChild(geckoItem);
+        });
+      });
+    }
+
+    // Function to delete a gecko
+    function deleteGecko(geckoId) {
+      firestore.collection('geckos').doc(geckoId).delete().then(() => {
+        alert('Gecko deleted successfully!');
+        displayCurrentGeckos(); // Refresh the list after deletion
+      }).catch((error) => {
+        console.error('Error deleting gecko:', error);
+      });
+    }
+
+    // Function to edit a gecko (You can implement this as needed)
+    function editGecko(geckoId) {
+      // Implement the edit functionality as needed
+      // ...
+    }
+
+    // Call the function to display current geckos when the page loads
+    window.onload = displayCurrentGeckos;
+
+    function editGecko(geckoId) {
+    const editGeckoModal = document.getElementById('editGeckoModal');
+    const editGeckoForm = document.getElementById('editGeckoForm');
+
+    // Retrieve gecko details from Firestore
+    firestore.collection('geckos').doc(geckoId).get().then((doc) => {
+      if (doc.exists) {
+        const data = doc.data();
+        const editGeckoName = document.getElementById('editGeckoName');
+        const editGeckoDescription = document.getElementById('editGeckoDescription');
+        const editGeckoPrice = document.getElementById('editGeckoPrice');
+        const editGeckoImage = document.getElementById('editGeckoImage');
+        const editParentsImage = document.getElementById('editParentsImage');
+        const editGrandparent1Image = document.getElementById('editGrandparent1Image');
+        const editGrandparent2Image = document.getElementById('editGrandparent2Image');
+
+        // Populate the form with existing gecko details
+        editGeckoName.value = data.name;
+        editGeckoDescription.value = data.description;
+        editGeckoPrice.value = data.price;
+
+        // Display the edit gecko modal
+        editGeckoModal.style.display = 'block';
+      } else {
+        console.error('Gecko document not found!');
+      }
+    }).catch((error) => {
+      console.error('Error getting gecko details:', error);
+    });
+  }
+
+  // Function to save edited gecko details
+  function saveEditedGecko() {
+    const editGeckoName = document.getElementById('editGeckoName').value;
+    const editGeckoDescription = document.getElementById('editGeckoDescription').value;
+    const editGeckoPrice = document.getElementById('editGeckoPrice').value;
+    const editGeckoImage = document.getElementById('editGeckoImage').files[0];
+    const editParentsImage = document.getElementById('editParentsImage').files[0];
+    const editGrandparent1Image = document.getElementById('editGrandparent1Image').files[0];
+    const editGrandparent2Image = document.getElementById('editGrandparent2Image').files[0];
+
+    // Validate form fields
+    if (!editGeckoName || !editGeckoDescription || !editGeckoPrice) {
+      alert('Please fill in all required fields');
+      return;
+    }
+
+    // Update gecko details in Firestore
+    firestore.collection('geckos').doc(currentEditingGeckoId).update({
+      name: editGeckoName,
+      description: editGeckoDescription,
+      price: editGeckoPrice,
+      // Implement updating other fields (geckoImage, parentsImage, grandparent1Image, grandparent2Image)
+      // ...
+
+    }).then(() => {
+      alert('Gecko details updated successfully!');
+      closeEditModal();
+      displayCurrentGeckos(); // Refresh the list after editing
+    }).catch((error) => {
+      console.error('Error updating gecko details:', error);
+    });
+  }
+  </script>
   </html>

@@ -40,7 +40,6 @@
       // Upload images to Firebase Storage
       const storageRef = firebase.storage().ref();
       const uploadGeckoTask = storageRef.child(`gecko_images/${geckoImage.name}`).put(geckoImage);
-      const uploadDescriptionTask = storageRef.child(`gecko_images/${geckoDescription.name}`).put(geckoImage);
       const uploadParentsTask = storageRef.child(`parent_images/${parentsImage.name}`).put(parentsImage);
       const uploadGrandparent1Task = storageRef.child(`grandparent_images/${grandparentsImage.name}`).put(grandparentsImage);
       const uploadGrandparent2Task = storageRef.child(`grandparent_images/${grandparent2Image.name}`).put(grandparent2Image);

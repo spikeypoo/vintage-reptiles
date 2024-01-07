@@ -27,14 +27,15 @@
 
     function uploadGecko() {
   const name = document.getElementById('geckoName').value;
-  const description = document.getElementById('geckoDescriptionription').value;
+  const price = document.getElementById('geckoPrice').value;
+  const description = document.getElementById('geckoDescription').value;
   const geckoImage = document.getElementById('geckoImage').files[0];
   const parentsImage = document.getElementById('parentsImage').files[0];
   const grandparentsImage = document.getElementById('grandparentsImage').files[0];
   const grandparent2Image = document.getElementById('grandparent2Image').files[0];
 
   // Validate form fields
-  if (!name || !description || !geckoImage || !parentsImage || !grandparentsImage || !grandparent2Image) {
+  if (!name || !description || !price || !geckoImage || !parentsImage || !grandparentsImage || !grandparent2Image) {
     alert('Please fill in all fields');
     return;
   }
@@ -82,6 +83,7 @@
         .collection('geckos')
         .add({
           name: name,
+          price: price,
           description: description,
           gecko: geckoURL,
           parents: parentURL,
@@ -153,8 +155,11 @@
         <label for="geckoName">Gecko Name:</label>
         <input type="text" id="geckoName" name="geckoName" required>
         <br>
-        <label for="geckoDescriptionription">Description:</label>
-        <input type="text" id="geckoDescriptionription" name="geckoDiscription" required>
+        <label for="geckoPrice">Price:</label>
+        <input type="text" id="geckoPrice" name="geckoPrice" required>
+        <br>
+        <label for="geckoDescription">Description:</label>
+        <input type="text" id="geckoDescription" name="geckoDescription" required>
         <br>
         <label for="geckoImage">Gecko Image:</label>
         <input type="file" id="geckoImage" name="geckoImage" accept="image/*" required>

@@ -124,6 +124,12 @@
             src: url('./Tahoma Bold.woff');
         }
 
+        #editGeckoModal
+        {
+            display:none;
+            text-align:center;
+        }
+
         .header
         {
         text-align:center;
@@ -179,7 +185,7 @@
       <hr>
 
         <!-- Display current gecko images with delete and edit buttons -->
-        <div id="currentGeckos">
+        <div id="currentGeckos" style="text-align:center">
             <h2 class="header">Current Geckos</h2>
             <ul id="geckoList"></ul>
         </div>
@@ -323,5 +329,11 @@
       console.error('Error updating gecko details:', error);
     });
   }
+
+  // Function to close the edit gecko modal
+  function closeEditModal() {
+      const editGeckoModal = document.getElementById('editGeckoModal');
+      editGeckoModal.style.display = 'none';
+    }
   </script>
   </html>

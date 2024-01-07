@@ -44,21 +44,25 @@ function openModal(name, image, desc, price, gp1, gp2, par) {
     <img src="${image}" alt="${name}">
     `;
     modalContent.innerHTML = `
-      <h2 class="header2">${name}<span class="pg" style="margin-top:100px;font-size:20px"><br>${desc}<br><br>$${price}.00 CAD</span></h2>
       <img src="${image}" alt="${name}" class="chicken" onclick="changeImage('${image}')" margin-right:10px;">
       <img src="${par}" alt="${name}" class="chicken" onclick="changeImage('${par}')" margin-right:10px;">
       <img src="${gp1}" alt="${name}" class="chicken" onclick="changeImage('${gp1}')" margin-right:10px;">
       <img src="${gp2}" alt="${name}" class="chicken" onclick="changeImage('${gp2}')">
+      <h2 class="header2"><span class="pg" style="margin-top:100px;font-size:20px">$${price}.00 CAD</span><br><br>${name}<span class="pg" style="margin-top:100px;font-size:20px"><br>${desc}<br><br></span></h2>
       <!-- Add more details if needed -->
     `;
     const modal = document.getElementById('geckoModal');
     modal.style.display = 'block';
+
+    modal.classList.add('modal-open');
   }
   
   // Function to close the modal
   function closeModal() {
     const modal = document.getElementById('geckoModal');
     modal.style.display = 'none';
+
+    modal.classList.remove('modal-open');
   }
 
   function changeImage(image)

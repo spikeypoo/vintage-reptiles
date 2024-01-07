@@ -1,5 +1,6 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 <script>
     const firebaseConfig = {
     apiKey: "AIzaSyDVSmOD4MRVeupfQ33Umlry0pjHvVtylkA",
@@ -20,16 +21,127 @@
         window.location.href = 'login.html';
       }
     });
+
+    function uploadGecko() {
+      const name = document.getElementById('geckoName').value;
+      const description = document.getElementById('geckoDesc').value;
+      const geckoImage = document.getElementById('geckoImage').files[0];
+      const parentsImage = document.getElementById('parentsImage').files[0];
+      const grandparentsImage = document.getElementById('grandparentsImage').files[0];
+      const grandparent2Image = document.getElementById('grandparent2Image').files[0];
+
+      // Validate form fields
+      if (!name || !description || !geckoImage || !parentsImage || !grandparentsImage || !grandparent2Image) {
+        alert('Please fill in all fields');
+        return;
+      }
+
+      // Upload images to Firebase Storage
+      const storageRef = firebase.storage().ref();
+      const uploadGeckoTask = storageRef.child(`gecko_images/${geckoImage.name}`).put(geckoImage);
+      const uploadDescriptionTask = storageRef.child(`gecko_images/${geckoDesc.name}`).put(geckoImage);
+      const uploadParentsTask = storageRef.child(`parent_images/${parentsImage.name}`).put(parentsImage);
+      const uploadGrandparent1Task = storageRef.child(`grandparent_images/${grandparentsImage.name}`).put(grandparentsImage);
+      const uploadGrandparent2Task = storageRef.child(`grandparent_images/${grandparent2Image.name}`).put(grandparent2Image);
+
+      // Handle successful uploads
+      Promise.all([uploadGeckoTask, uploadParentsTask, uploadGrandparent1Task, uploadGrandparent2Task])
+        .then((results) => {
+          const geckoImageURL = results[0].ref.getDownloadURL();
+          const parentsImageURL = results[1].ref.getDownloadURL();
+          const grandparentsImageURL = results[2].ref.getDownloadURL();
+          const grandparent2ImageURL = results[3].ref.getDownloadURL();
+
+          // Save gecko data to Firestore
+          Promise.all([geckoImageURL, parentsImageURL, grandparentsImageURL, grandparent2ImageURL])
+            .then((urls) => {
+              const [geckoURL, parent1URL, parent2URL, grandparent1URL, grandparent2URL] = urls;
+              
+              firestore.collection('geckos').add({
+                name: name,
+                gecko: geckoURL,
+                parents: parentsImageURL,
+                grandparent1: grandparent1URL,
+                grandparent2: grandparent2URL,
+              }).then(() => {
+                alert('Gecko uploaded successfully!');
+                // You can redirect to another page or perform any additional actions here
+              }).catch((error) => {
+                console.error('Error adding gecko to Firestore:', error);
+              });
+            });
+        }).catch((error) => {
+          console.error('Error uploading images to Firebase Storage:', error);
+        });
+    }
   </script>
   
   <!-- The rest of your uploadForm.html content -->
   <!DOCTYPE html>
   <html lang="en">
   <head>
-    <!-- ... your head content ... -->
+    <style>
+        body
+        {
+            background-color:#1C1A1B;
+        }
+        @font-face {
+            font-family: Normal;
+            src: url('./Tahoma.woff');
+        }
+
+        @font-face {
+            font-family: Header;
+            src: url('./Tahoma Bold.woff');
+        }
+
+        .header
+        {
+        text-align:center;
+        color:white;
+        font-size:18px;
+        font-family:Header;
+        text-decoration:underline;
+        }
+
+        .pg
+        {
+        color:white;
+        font-size:17px;
+        font-family:Normal;
+        width:90%;
+        max-width:1000px;
+        margin-left:auto;
+        margin-right:auto;
+        text-align:center;
+        }
+    </style>
   </head>
   <body>
     <!-- ... your body content ... -->
     <!-- Include your upload form HTML and JavaScript here -->
+    <h2 class="header">Upload Form</h2>
+
+    <div class="pg">
+        <label for="geckoName">Gecko Name:</label>
+        <input type="text" id="geckoName" name="geckoName" required>
+        <br>
+        <label for="geckoDescription">Description:</label>
+        <input type="text" id="geckoDescription" name="geckoDiscription" required>
+        <br>
+        <label for="geckoImage">Gecko Image:</label>
+        <input type="file" id="geckoImage" name="geckoImage" accept="image/*" required>
+        <br>
+        <label for="parentsImage">Parents Image:</label>
+        <input type="file" id="parentsImage" name="parentsImage" accept="image/*" required>
+        <br>
+        <label for="grandparentsImage">Grandparent 1 Image:</label>
+        <input type="file" id="grandparentsImage" name="grandparentsImage" accept="image/*" required>
+        <br>
+        <label for="grandparent2Image">Grandparent 2 Image:</label>
+        <input type="file" id="grandparent2Image" name="grandparent2Image" accept="image/*" required>
+        <br>
+        <button onclick="uploadGecko()">Upload Gecko</button>
+      </div>
   </body>
   </html>

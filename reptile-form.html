@@ -26,56 +26,81 @@
     });
 
     function uploadGecko() {
-      const name = document.getElementById('geckoName').value;
-      const description = document.getElementById('geckoDescriptionription').value;
-      const geckoImage = document.getElementById('geckoImage').files[0];
-      const parentsImage = document.getElementById('parentsImage').files[0];
-      const grandparentsImage = document.getElementById('grandparentsImage').files[0];
-      const grandparent2Image = document.getElementById('grandparent2Image').files[0];
+  const name = document.getElementById('geckoName').value;
+  const description = document.getElementById('geckoDescriptionription').value;
+  const geckoImage = document.getElementById('geckoImage').files[0];
+  const parentsImage = document.getElementById('parentsImage').files[0];
+  const grandparentsImage = document.getElementById('grandparentsImage').files[0];
+  const grandparent2Image = document.getElementById('grandparent2Image').files[0];
 
-      // Validate form fields
-      if (!name || !description || !geckoImage || !parentsImage || !grandparentsImage || !grandparent2Image) {
-        alert('Please fill in all fields');
-        return;
-      }
+  // Validate form fields
+  if (!name || !description || !geckoImage || !parentsImage || !grandparentsImage || !grandparent2Image) {
+    alert('Please fill in all fields');
+    return;
+  }
 
-      // Upload images to Firebase Storage
-      const storageRef = firebase.storage().ref();
-      const uploadGeckoTask = storageRef.child(`gecko_images/${geckoImage.name}`).put(geckoImage);
-      const uploadParentsTask = storageRef.child(`parent_images/${parentsImage.name}`).put(parentsImage);
-      const uploadGrandparent1Task = storageRef.child(`grandparent_images/${grandparentsImage.name}`).put(grandparentsImage);
-      const uploadGrandparent2Task = storageRef.child(`grandparent_images/${grandparent2Image.name}`).put(grandparent2Image);
+  // Upload images to Firebase Storage
+  const storageRef = firebase.storage().ref();
 
-      // Handle successful uploads
-      Promise.all([uploadGeckoTask, uploadParentsTask, uploadGrandparent1Task, uploadGrandparent2Task])
-        .then((results) => {
-          const geckoImageURL = results[0].ref.getDownloadURL();
-          const parentsImageURL = results[1].ref.getDownloadURL();
-          const grandparentsImageURL = results[2].ref.getDownloadURL();
-          const grandparent2ImageURL = results[3].ref.getDownloadURL();
-
-          // Save gecko data to Firestore
-          Promise.all([geckoImageURL, parentsImageURL, grandparentsImageURL, grandparent2ImageURL])
-            .then((urls) => {
-              const [geckoURL, parent1URL, parent2URL, grandparent1URL, grandparent2URL] = urls;
-              
-              firestore.collection('geckos').add({
-                name: name,
-                gecko: geckoURL,
-                parents: parentsImageURL,
-                grandparent1: grandparent1URL,
-                grandparent2: grandparent2URL,
-              }).then(() => {
-                alert('Gecko uploaded successfully!');
-                // You can redirect to another page or perform any additional actions here
-              }).catch((error) => {
-                console.error('Error adding gecko to Firestore:', error);
-              });
+  // Function to upload an image and return its download URL
+  const uploadAndGetURL = (file) => {
+    return new Promise((resolve, reject) => {
+      const uploadTask = storageRef.child(`gecko_images/${file.name}`).put(file);
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {},
+        (error) => {
+          reject(error);
+        },
+        () => {
+          storageRef
+            .child(`gecko_images/${file.name}`)
+            .getDownloadURL()
+            .then((url) => {
+              resolve(url);
+            })
+            .catch((urlError) => {
+              reject(urlError);
             });
-        }).catch((error) => {
-          console.error('Error uploading images to Firebase Storage:', error);
+        }
+      );
+    });
+  };
+
+  // Handle successful uploads
+  Promise.all([
+    uploadAndGetURL(geckoImage),
+    uploadAndGetURL(parentsImage),
+    uploadAndGetURL(grandparentsImage),
+    uploadAndGetURL(grandparent2Image),
+  ])
+    .then((urls) => {
+      const [geckoURL, parentURL, grandparent1URL, grandparent2URL] = urls;
+
+      // Save gecko data to Firestore
+      firestore
+        .collection('geckos')
+        .add({
+          name: name,
+          description: description,
+          gecko: geckoURL,
+          parents: parentURL,
+          grandparent1: grandparent1URL,
+          grandparent2: grandparent2URL,
+        })
+        .then(() => {
+          alert('Gecko uploaded successfully!');
+          // You can redirect to another page or perform any additional actions here
+        })
+        .catch((firestoreError) => {
+          console.error('Error adding gecko to Firestore:', firestoreError);
         });
-    }
+    })
+    .catch((error) => {
+      console.error('Error uploading images to Firebase Storage:', error);
+    });
+}
+
   </script>
   
   <!-- The rest of your uploadForm.html content -->

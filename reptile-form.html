@@ -296,10 +296,6 @@
         const editGeckoName = document.getElementById('editGeckoName');
         const editGeckoDescription = document.getElementById('editGeckoDescription');
         const editGeckoPrice = document.getElementById('editGeckoPrice');
-        const editGeckoImage = document.getElementById('editGeckoImage');
-        const editParentsImage = document.getElementById('editParentsImage');
-        const editGrandparent1Image = document.getElementById('editGrandparent1Image');
-        const editGrandparent2Image = document.getElementById('editGrandparent2Image');
 
         // Populate the form with existing gecko details
         editGeckoName.value = data.name;
@@ -321,10 +317,6 @@
     const editGeckoName = document.getElementById('editGeckoName').value;
     const editGeckoDescription = document.getElementById('editGeckoDescription').value;
     const editGeckoPrice = document.getElementById('editGeckoPrice').value;
-    const editGeckoImage = document.getElementById('editGeckoImage').files[0];
-    const editParentsImage = document.getElementById('editParentsImage').files[0];
-    const editGrandparent1Image = document.getElementById('editGrandparent1Image').files[0];
-    const editGrandparent2Image = document.getElementById('editGrandparent2Image').files[0];
 
     // Validate form fields
     if (!editGeckoName || !editGeckoDescription || !editGeckoPrice) {

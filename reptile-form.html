@@ -35,8 +35,8 @@
   const grandparent2Image = document.getElementById('grandparent2Image').files[0];
 
   // Validate form fields
-  if (!name || !description || !price || !geckoImage || !parentsImage || !grandparentsImage || !grandparent2Image) {
-    alert('Please fill in all fields');
+  if (!name || !description || !price || !geckoImage) {
+    alert('Please fill in all fields (image of gecko is necessary, however, the lineage are not)');
     return;
   }
 
@@ -180,9 +180,11 @@
               var value = $(this).val(); //Get the clicked checkbox value
               currentPageEdit = value;
               displayCurrentGeckos();
+              closeEditModal();
           });
       </script>
         <hr>
+        <i>*remember: &lt;br&gt; goes to the next line* <br><br></i>
         <label for="geckoName">Gecko Name:</label>
         <input type="text" id="geckoName" name="geckoName" required>
         <br>

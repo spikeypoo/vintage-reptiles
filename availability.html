@@ -88,7 +88,7 @@
     .reptile-card img {
       width: 100%;
       max-width: 275px;
-      height: auto;
+      height:auto;
       border: 5px solid white;
       cursor: pointer;
     }
@@ -266,7 +266,9 @@
         border:5px solid white;
         cursor:pointer;
         width:70px;
+        height:70px;
         left:60px;
+        margin-right:5px;
       }
 
       #modalContent
@@ -311,6 +313,11 @@
       padding-left:250px;
     }
 
+    #reptileContainer img
+    {
+
+    }
+
     #reptileContainer img:hover
     {
       opacity:60%;
@@ -340,6 +347,8 @@
       position:relative;
       right:485px;
       top:525px;
+      height:100px;
+      margin-right:5px;
     }
 
     #modalContent img:hover
@@ -468,14 +477,27 @@ function openModal(name, image, desc, price, gp1, gp2, par) {
     const modalImages = document.getElementById('modalImages');
     const modalContent = document.getElementById('modalContent');
     var temp = image;
+    modalContent.innerHTML = ``;
     modalImages.innerHTML = `
     <img src="${image}" alt="${name}">
     `;
-    modalContent.innerHTML = `
-      <img src="${image}" alt="${name}" class="chicken" onclick="changeImage('${image}')" margin-right:10px;">
-      <img src="${par}" alt="${name}" class="chicken" onclick="changeImage('${par}')" margin-right:10px;">
-      <img src="${gp1}" alt="${name}" class="chicken" onclick="changeImage('${gp1}')" margin-right:10px;">
-      <img src="${gp2}" alt="${name}" class="chicken" onclick="changeImage('${gp2}')">
+    if (image != "undefined")
+    {
+      modalContent.innerHTML += `<img src="${image}" alt="${name}" class="chicken" onclick="changeImage('${image}')" margin-right:10px;">`;
+    }
+    if (par != "undefined")
+    {
+      modalContent.innerHTML += `<img src="${par}" alt="${name}" class="chicken" onclick="changeImage('${par}')" margin-right:10px;">`;
+    }
+    if (gp1 != "undefined")
+    {
+      modalContent.innerHTML += `<img src="${gp1}" alt="${name}" class="chicken" onclick="changeImage('${gp1}')" margin-right:10px;">`;
+    }
+    if (gp2 != "undefined")
+    {
+      modalContent.innerHTML += `<img src="${gp2}" alt="${gp2}" class="chicken" onclick="changeImage('${gp2}')" margin-right:10px;">`;
+    }
+    modalContent.innerHTML += `
       <h2 class="header2"><span class="pg" style="margin-top:100px;font-size:20px">$${price}.00 CAD</span><br><br>${name}<span class="pg" style="margin-top:100px;font-size:20px"><br>${desc}<br><br></span></h2>
       <!-- Add more details if needed -->
     `;

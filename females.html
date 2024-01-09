@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 <head>
+  
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <style>
     @font-face {
@@ -14,6 +16,81 @@
       margin: 0;
       padding: 0;
       font-family: Normal;
+    }
+
+    @font-face {
+        font-family: Header;
+        src: url('./Tahoma Bold.woff');
+    }
+
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      right:0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: #121010;
+      background-color: #121010;
+    }
+
+    .close
+    {
+      color:white;
+      font-size:50px;
+    }
+
+    .header
+    {
+      text-align:center;
+      color:white;
+      font-size:18px;
+      font-family:Header;
+      text-decoration:underline;
+    }
+
+    .header2
+    {
+      color:white;
+      font-size:18px;
+      font-family:Header;
+      text-decoration:underline;
+    }
+
+    .pg
+    {
+      color:white;
+      font-size:17px;
+      font-family:Normal;
+      width:90%;
+      max-width:1000px;
+      margin-left:auto;
+      margin-right:auto;
+      text-align:center;
+    }
+
+    #reptileContainer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .reptile-card {
+      flex: 0 0 calc(33.33% - 20px); /* Adjust the percentage as needed */
+      margin: 10px;
+      max-width:300px;
+      box-sizing: border-box;
+    }
+
+    .reptile-card img {
+      width: 100%;
+      max-width: 275px;
+      height:auto;
+      border: 5px solid white;
+      cursor: pointer;
     }
 
     .mobile-nav {
@@ -152,6 +229,74 @@
       {
         display: none;
       }
+
+      #reptileContainer {
+        flex-direction: column; /* Stack cards under each other */
+        align-items: center; /* Center cards horizontally */
+      }
+
+      .reptile-card {
+        flex: 0 0 calc(100% - 20px); /* Full width with margins */
+      }
+
+      #modalImages
+      {
+        padding-top:50px;
+      }
+
+      #modalImages img
+      {
+        max-width:90%;
+        width:500px;
+        display:block;
+        margin-left:auto;
+        margin-right:auto;
+        border:5px solid white
+      }
+
+      #modalContent h2
+      {
+        text-decoration:none;
+        font-size:20px;
+        padding-left:0px;
+      }
+
+      #modalContent img
+      {
+        border:5px solid white;
+        cursor:pointer;
+        width:70px;
+        height:70px;
+        left:60px;
+        margin-right:5px;
+      }
+
+      #modalContent
+      {
+        padding-left:30px;
+        padding-top:20px;
+      }
+
+      #reptileContainer img:hover
+      {
+        opacity:60%;
+      }
+
+      #reptileContainer h2
+      {
+        text-decoration:none;
+      }
+
+      #modalContent img:hover
+      {
+        border:5px solid lightgrey;
+      }
+
+      #containing
+      {
+        padding-top:10px;
+      }
+      
     }
 
     @media screen and (min-width: 600px) {
@@ -159,6 +304,66 @@
       {
         display: none;
       }
+
+      #containing
+    {
+      display:flex;
+      justify-content:center;
+      padding-top:110px;
+      padding-left:250px;
+    }
+
+    #reptileContainer img
+    {
+
+    }
+
+    #reptileContainer img:hover
+    {
+      opacity:60%;
+    }
+
+    #reptileContainer h2
+    {
+      text-decoration:none;
+    }
+
+    #modalImages img
+    {
+      width:500px;
+      border:5px solid white
+    }
+
+    #modalContent
+    {
+      padding-bottom:120px
+    }
+
+    #modalContent img
+    {
+      border:5px solid white;
+      cursor:pointer;
+      width:100px;
+      position:relative;
+      right:485px;
+      top:525px;
+      height:100px;
+      margin-right:5px;
+    }
+
+    #modalContent img:hover
+    {
+      border:5px solid lightgrey;
+    }
+
+    #modalContent h2
+    {
+      text-decoration:none;
+      padding-left:100px;
+      padding-bottom:0;
+      font-size:30px;
+      top:0px;
+    }
     }
 
   </style>
@@ -217,6 +422,106 @@
     <hr>
   </div>
 
+  <div id="reptileContainer"></div>
+
+  <div id="geckoModal" class="modal">
+    <span class="close" style="position:absolute;top:2px;right:20px;cursor:pointer" onclick="closeModal()">&times;</span>
+    <div id="containing">
+      <div id="modalImages"></div>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+  <script>
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDVSmOD4MRVeupfQ33Umlry0pjHvVtylkA",
+    authDomain: "vintage-reptiles.firebaseapp.com",
+    projectId: "vintage-reptiles",
+    storageBucket: "vintage-reptiles.appspot.com",
+    messagingSenderId: "547191562645",
+    appId: "1:547191562645:web:8ccc52ccdde7b239e0969c"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+
+// Fetch reptile data from Firestore
+const reptilesCollection = firebase.firestore().collection('females');
+const reptileContainer = document.getElementById('reptileContainer');
+
+
+
+reptilesCollection.get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        // Create HTML elements for each reptile
+        const reptileCard = document.createElement('div');
+        reptileCard.className = 'reptile-card';
+
+        reptileCard.innerHTML = `
+            <h2 class="header">${data.name}</h2>
+            <img style="margin-left:auto;margin-right:auto;display:block;cursor:pointer;" 
+                src="${data.gecko}" alt="${data.name}" 
+                onclick="openModal('${data.name}', '${data.gecko}', '${data.description}', '${data.price}', '${data.grandparents1}', '${data.grandparents2}', '${data.parents}')">
+                <h2 class="header">$${data.price}.00</h2>
+            `;
+        // Chicken butt!
+        // Append the reptile card to the container
+        reptileContainer.appendChild(reptileCard);
+    });
+});
+
+function openModal(name, image, desc, price, gp1, gp2, par) {
+    const modalImages = document.getElementById('modalImages');
+    const modalContent = document.getElementById('modalContent');
+    var temp = image;
+    modalContent.innerHTML = ``;
+    modalImages.innerHTML = `
+    <img src="${image}" alt="${name}">
+    `;
+    if (image != "undefined")
+    {
+      modalContent.innerHTML += `<img src="${image}" alt="${name}" class="chicken" onclick="changeImage('${image}')" margin-right:10px;">`;
+    }
+    if (par != "undefined")
+    {
+      modalContent.innerHTML += `<img src="${par}" alt="${name}" class="chicken" onclick="changeImage('${par}')" margin-right:10px;">`;
+    }
+    if (gp1 != "undefined")
+    {
+      modalContent.innerHTML += `<img src="${gp1}" alt="${name}" class="chicken" onclick="changeImage('${gp1}')" margin-right:10px;">`;
+    }
+    if (gp2 != "undefined")
+    {
+      modalContent.innerHTML += `<img src="${gp2}" alt="${gp2}" class="chicken" onclick="changeImage('${gp2}')" margin-right:10px;">`;
+    }
+    modalContent.innerHTML += `
+      <h2 class="header2"><span class="pg" style="margin-top:100px;font-size:20px">$${price}.00 CAD</span><br><br>${name}<span class="pg" style="margin-top:100px;font-size:20px"><br>${desc}<br><br></span></h2>
+      <!-- Add more details if needed -->
+    `;
+    const modal = document.getElementById('geckoModal');
+    modal.style.display = 'block';
+
+    modal.classList.add('modal-open');
+  }
+  
+  // Function to close the modal
+  function closeModal() {
+    const modal = document.getElementById('geckoModal');
+    modal.style.display = 'none';
+
+    modal.classList.remove('modal-open');
+  }
+
+  function changeImage(image)
+  {
+    modalImages.innerHTML = `
+    <img src="${image}" alt="${name}" style="width:500px;border:5px solid white">
+    `;
+  }
+  </script>
 
   <script>
     function redirectUser(evt, dir) {

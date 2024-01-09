@@ -80,7 +80,7 @@
 
       // Save gecko data to Firestore
       firestore
-        .collection('geckos')
+        .collection(currentPageEdit)
         .add({
           name: name,
           price: price,
@@ -91,6 +91,7 @@
           grandparents2: grandparent2URL,
         })
         .then(() => {
+          displayCurrentGeckos();
           alert('Gecko uploaded successfully!');
           // You can redirect to another page or perform any additional actions here
         })
@@ -155,9 +156,32 @@
   <body>
     <!-- ... your body content ... -->
     <!-- Include your upload form HTML and JavaScript here -->
-    <h2 class="header">Upload Form</h2>
+    <h2 id="chickenbutt" class="header">Upload Form</h2>
+
+    
 
     <div class="pg">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <form action="" method="post">
+          <label>
+              <input type="radio" name="a1" value="geckos" /> Availability 
+          </label></br>
+          <label>
+              <input type="radio" name="a1" value="males" /> Males
+          </label></br>
+          <label>
+              <input type="radio" name="a1" value="females" /> Females
+          </label></br>
+      </form>
+      <span class="r-text"><?php echo $selected;?></span>
+      <script>
+          $('input[type=radio]').click(function(e) {//jQuery works on clicking radio box
+              var value = $(this).val(); //Get the clicked checkbox value
+              currentPageEdit = value;
+              displayCurrentGeckos();
+          });
+      </script>
+        <br>
         <label for="geckoName">Gecko Name:</label>
         <input type="text" id="geckoName" name="geckoName" required>
         <br>
@@ -178,7 +202,7 @@
         <br>
         <label for="grandparent2Image">Grandparent 2 Image:</label>
         <input type="file" id="grandparent2Image" name="grandparent2Image" accept="image/*" required>
-        <br>
+        <br><br>
         <button onclick="uploadGecko()">Upload Gecko</button>
       </div>
 
@@ -187,7 +211,7 @@
         <!-- Display current gecko images with delete and edit buttons -->
         <div id="currentGeckos" style="text-align:center">
             <h2 class="header">Current Geckos</h2>
-            <ul id="geckoList"></ul>
+            <div id="geckoList"></div>
         </div>
 
         <hr>
@@ -195,7 +219,7 @@
         <!-- Modal for editing gecko -->
         <div id="editGeckoModal" class="modal">
             <div id="editGeckoModalContent">
-            <span class="close" onclick="closeEditModal()">&times;</span>
+            <span class="close" style="font-size: 48;color:white;cursor:pointer;" onclick="closeEditModal()">&times;</span>
             <h2 class="header">Edit Gecko</h2>
             <form id="editGeckoForm">
                 <label style="color:white;font-family:normal" for="editGeckoName">Name:</label>
@@ -206,19 +230,7 @@
                 <br>
                 <label style="color:white;font-family:normal" for="editGeckoPrice">Price:</label>
                 <input type="text" id="editGeckoPrice" required>
-                <br>
-                <label style="color:white;font-family:normal" for="editGeckoImage">Gecko Image:</label>
-                <input type="file" id="editGeckoImage">
-                <br>
-                <label style="color:white;font-family:normal" for="editParentsImage">Parents Image:</label>
-                <input type="file" id="editParentsImage">
-                <br>
-                <label style="color:white;font-family:normal" for="editGrandparent1Image">Grandparent 1 Image:</label>
-                <input type="file" id="editGrandparent1Image">
-                <br>
-                <label style="color:white;font-family:normal" for="editGrandparent2Image">Grandparent 2 Image:</label>
-                <input type="file" id="editGrandparent2Image">
-                <br>
+                <br><br>
                 <button type="button" onclick="saveEditedGecko()">Save Changes</button>
             </form>
             </div>
@@ -230,13 +242,20 @@
     // ...
     let currentEditingGeckoId = null;
 
+    let currentPageEdit = null;
+
+    function changeCurrPageEdit(editPage)
+    {
+      currentPageEdit = editPage;
+    }
+
     // Function to display current geckos
     function displayCurrentGeckos() {
       const geckoList = document.getElementById('geckoList');
       geckoList.innerHTML = ''; // Clear previous list
 
       // Retrieve geckos from Firestore
-      firestore.collection('geckos').get().then((querySnapshot) => {
+      firestore.collection(currentPageEdit).get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           const data = doc.data();
           const geckoItem = document.createElement('li');
@@ -253,7 +272,7 @@
 
     // Function to delete a gecko
     function deleteGecko(geckoId) {
-      firestore.collection('geckos').doc(geckoId).delete().then(() => {
+      firestore.collection(currentPageEdit).doc(geckoId).delete().then(() => {
         alert('Gecko deleted successfully!');
         displayCurrentGeckos(); // Refresh the list after deletion
       }).catch((error) => {
@@ -271,7 +290,7 @@
     currentEditingGeckoId = geckoId;
 
     // Retrieve gecko details from Firestore
-    firestore.collection('geckos').doc(geckoId).get().then((doc) => {
+    firestore.collection(currentPageEdit).doc(geckoId).get().then((doc) => {
       if (doc.exists) {
         const data = doc.data();
         const editGeckoName = document.getElementById('editGeckoName');
@@ -314,7 +333,7 @@
     }
 
     // Update gecko details in Firestore
-    firestore.collection('geckos').doc(currentEditingGeckoId).update({
+    firestore.collection(currentPageEdit).doc(currentEditingGeckoId).update({
       name: editGeckoName,
       description: editGeckoDescription,
       price: editGeckoPrice,

@@ -337,6 +337,8 @@
       name: editGeckoName,
       description: editGeckoDescription,
       price: editGeckoPrice,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      
       // Implement updating other fields (geckoImage, parentsImage, grandparent1Image, grandparent2Image)
       // ...
 

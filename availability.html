@@ -460,7 +460,7 @@ const reptileContainer = document.getElementById('reptileContainer');
 
 
 
-reptilesCollection.get().then((querySnapshot) => {
+reptilesCollection.orderBy('timestamp', 'desc').get().then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
         const data = doc.data();
         // Create HTML elements for each reptile
@@ -474,7 +474,6 @@ reptilesCollection.get().then((querySnapshot) => {
                 onclick="openModal('${data.name}', '${data.gecko}', '${data.description}', '${data.price}', '${data.grandparents1}', '${data.grandparents2}', '${data.parents}')">
                 <h2 class="header">$${data.price}.00</h2>
             `;
-        // Chicken butt!
         // Append the reptile card to the container
         reptileContainer.appendChild(reptileCard);
     });

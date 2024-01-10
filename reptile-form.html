@@ -93,6 +93,7 @@
           parents: parentURL,
           grandparents1: grandparent1URL,
           grandparents2: grandparent2URL,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         })
         .then(() => {
           displayCurrentGeckos();

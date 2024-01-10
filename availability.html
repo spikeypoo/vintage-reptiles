@@ -72,31 +72,21 @@
       text-align:center;
     }
 
-    #containerContainer {
-      display: flex;
-      justify-content: center; /* Center the container horizontally */
-    }
-
     #reptileContainer {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-start; /* Align cards to the left */
-      align-items: center; /* Center the cards vertically */
-      padding: 42px; /* Add some padding to the container */
+      justify-content:center;
     }
 
     .reptile-card {
       flex: 0 0 calc(33.33% - 20px); /* Adjust the percentage as needed */
       margin: 10px;
-      max-width: 300px;
+      max-width:300px;
       box-sizing: border-box;
-      text-align: center; /* Center the content within each card */
     }
-
 
     .reptile-card img {
       width: 100%;
-      max-width: 275px;
+      max-width: 250px;
       height:auto;
       border: 5px solid white;
       cursor: pointer;
@@ -240,23 +230,6 @@
       }
 
       #reptileContainer {
-        display: flex;
-        flex-wrap: wrap;
-      }
-
-      .reptile-card {
-        flex: 0 0 calc(33.33% - 20px); /* Adjust the percentage as needed */
-        margin: 10px;
-        max-width:300px;
-        box-sizing: border-box;
-      }
-
-      #containerContainer
-      {
-        display:block;
-      }
-
-      #reptileContainer {
         flex-direction: column; /* Stack cards under each other */
         align-items: center; /* Center cards horizontally */
       }
@@ -339,15 +312,21 @@
       padding-left:250px;
     }
 
-    #containerContainer
-    {
-      
-    }
-
     #reptileContainer img:hover
     {
       opacity:60%;
     }
+
+    #reptileContainer
+    {
+      flex-flow: wrap;
+    }
+
+    .reptile-card
+    {
+      
+    }
+
 
     #reptileContainer h2
     {
@@ -448,8 +427,8 @@
     <hr>
   </div>
 
-  <div id="containerContainer">
-    <div id="reptileContainer"></div>
+  <div id="contain">
+    <div id="reptileContainer" style="text-align:left"></div>
   </div>
 
   <div id="geckoModal" class="modal">

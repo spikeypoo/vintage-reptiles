@@ -472,8 +472,11 @@ reptilesCollection.orderBy('timestamp', 'desc').get().then((querySnapshot) => {
             <img style="margin-left:auto;margin-right:auto;display:block;cursor:pointer;" 
                 src="${data.gecko}" alt="${data.name}" 
                 onclick="openModal('${data.name}', '${data.gecko}', '${data.description}', '${data.price}', '${data.grandparents1}', '${data.grandparents2}', '${data.parents}')">
-                <h2 class="header">$${data.price}.00</h2>
             `;
+            if (data.price != "")
+            {
+              reptileCard.innerHTML += `<h2 class="header">$${data.price}.00</h2>`
+            }
         // Append the reptile card to the container
         reptileContainer.appendChild(reptileCard);
     });

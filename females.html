@@ -461,7 +461,7 @@ reptilesCollection.orderBy('timestamp', 'desc').get().then((querySnapshot) => {
         reptileCard.className = 'reptile-card';
 
         reptileCard.innerHTML = `
-        <h2 class="header">${data.name}</h2>
+            <h2 class="header">${data.name}</h2>
             <img style="margin-left:auto;margin-right:auto;display:block;cursor:pointer;" 
                 src="${data.gecko}" alt="${data.name}" 
                 onclick="openModal('${data.name}', '${data.gecko}', '${data.description}', '${data.price}', '${data.grandparents1}', '${data.grandparents2}', '${data.parents}')">
@@ -499,10 +499,16 @@ function openModal(name, image, desc, price, gp1, gp2, par) {
     {
       modalContent.innerHTML += `<img src="${gp2}" alt="${gp2}" class="chicken" onclick="changeImage('${gp2}')" margin-right:10px;">`;
     }
-    modalContent.innerHTML += `
+    if (price == "")
+    {
+      modalContent.innerHTML += `<h2 class="header2">${name}<span class="pg" style="margin-top:100px;font-size:20px"><br>${desc}<br><br></span></h2>`;
+    }
+    else
+    {
+      modalContent.innerHTML += `
       <h2 class="header2"><span class="pg" style="margin-top:100px;font-size:20px">$${price}.00 CAD</span><br><br>${name}<span class="pg" style="margin-top:100px;font-size:20px"><br>${desc}<br><br></span></h2>
-      <!-- Add more details if needed -->
-    `;
+      `;
+    }
     const modal = document.getElementById('geckoModal');
     modal.style.display = 'block';
 

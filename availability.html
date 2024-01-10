@@ -72,18 +72,27 @@
       text-align:center;
     }
 
+    #containerContainer {
+      display: flex;
+      justify-content: center; /* Center the container horizontally */
+    }
+
     #reptileContainer {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
+      justify-content: flex-start; /* Align cards to the left */
+      align-items: center; /* Center the cards vertically */
+      padding: 42px; /* Add some padding to the container */
     }
 
     .reptile-card {
       flex: 0 0 calc(33.33% - 20px); /* Adjust the percentage as needed */
       margin: 10px;
-      max-width:300px;
+      max-width: 300px;
       box-sizing: border-box;
+      text-align: center; /* Center the content within each card */
     }
+
 
     .reptile-card img {
       width: 100%;
@@ -231,6 +240,23 @@
       }
 
       #reptileContainer {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .reptile-card {
+        flex: 0 0 calc(33.33% - 20px); /* Adjust the percentage as needed */
+        margin: 10px;
+        max-width:300px;
+        box-sizing: border-box;
+      }
+
+      #containerContainer
+      {
+        display:block;
+      }
+
+      #reptileContainer {
         flex-direction: column; /* Stack cards under each other */
         align-items: center; /* Center cards horizontally */
       }
@@ -311,6 +337,11 @@
       justify-content:center;
       padding-top:110px;
       padding-left:250px;
+    }
+
+    #containerContainer
+    {
+      
     }
 
     #reptileContainer img:hover
@@ -417,7 +448,9 @@
     <hr>
   </div>
 
-  <div id="reptileContainer"></div>
+  <div id="containerContainer">
+    <div id="reptileContainer"></div>
+  </div>
 
   <div id="geckoModal" class="modal">
     <span class="close" style="position:absolute;top:2px;right:20px;cursor:pointer" onclick="closeModal()">&times;</span>
